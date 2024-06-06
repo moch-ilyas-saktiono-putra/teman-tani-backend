@@ -1,35 +1,34 @@
 const userModels = require("../models/users");
+const validator = require("validator");
 
-// get all user
-const getAllUsers = async (req, res) => {
+// Regist
+const createNewUser = async (req, res) => {
+  // filled foorm check
+  if (!req.body.username || !req.body.password || !req.body.email) {
+    return res.status(400).json({
+      message: "Failed to create user, all fields are required",
+    });
+  } else if (!validator.isEmail(req.body.email)) {
+    return res.status(400).json({
+      message: "Format email salah",
+    });
+  }
+
+  const { body } = req;
+
   try {
-    const [data] = await userModels.getAllUsers();
-    res.json({
-      message: "GET ALL DATA FROM users",
-      data: data,
+    await userModels.createNewUser(body);
+    return res.status(201).json({
+      message: "User success created",
     });
   } catch (error) {
-    res.status(500).json({
-      message: "server error",
+    return res.status(500).json({
+      message: "Failed to create user",
       serverMessage: error,
     });
   }
 };
 
-// Regist
-const register = (req, res) => {
-  const id = ree;
-  const firstName = req.body.firstName;
-  const lastName = req.body.lastName;
-  const email = req.nody.email;
-  const password = req.body.password;
-  const confirmPassword = req.body.confirmPassword;
-};
-
-// Login
-
-// Log Out
-
 module.exports = {
-  getAllUsers,
+  createNewUser,
 };

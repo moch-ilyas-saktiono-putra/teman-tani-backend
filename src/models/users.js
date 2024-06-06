@@ -1,11 +1,15 @@
 const dbPool = require("../config/database");
+const bcrypt = require("bcrypt");
 
-const getAllUsers = () => {
-  const SQLQuery = "SELECT * FROM users";
+const createNewUser = async (body) => {
+  const hashedPassword = await bcrypt.hash(body.password, 10);
+  const SQLQuery =
+    "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
+  const values = [body.username, hashedPassword, body.email];
 
-  return dbPool.execute(SQLQuery);
+  return dbPool.execute(SQLQuery, values);
 };
 
-module.exports= {
-    getAllUsers,
-}
+module.exports = {
+  createNewUser,
+};

@@ -3,14 +3,16 @@ const PORT = process.env.PORT || 5000;
 const express = require("express");
 const app = express();
 
-const userRouters = require("./controller/users");
+// Middleware
+app.use(express.json());
 
-app.use("/users", userRouters.getAllUsers);
+// Import Router
+const userRouters = require('./routes/users')
 
-const weatherRouters = require("./routes/weathers");
+// Router
+app.use('/users', userRouters)
 
-app.use("/weathers", weatherRouters);
-
+// server
 app.listen(PORT, () => {
   console.log(`Server running on localhost:${PORT}`);
 });
