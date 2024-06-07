@@ -1,5 +1,8 @@
-const userModels = require("../models/users");
 const validator = require("validator");
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 // Regist
 const createNewUser = async (req, res) => {
@@ -14,10 +17,17 @@ const createNewUser = async (req, res) => {
     });
   }
 
-  const { body } = req;
+  const { username, email, password } = req.body;
+  const hashedPasword = await bcrypt.hash(password, 10);
 
   try {
-    await userModels.createNewUser(body);
+    const sendData = await prisma.users.create({
+      data: {
+        username: username,
+        email: email,
+        password: hashedPasword,
+      },
+    });
     return res.status(201).json({
       message: "User success created",
     });
@@ -29,6 +39,11 @@ const createNewUser = async (req, res) => {
   }
 };
 
+const userLogin = (req, res) => {
+
+}
+
 module.exports = {
   createNewUser,
+  userLogin,
 };
