@@ -4,6 +4,7 @@ const userController = require("../controller/users");
 // const {validateUser} = require("../middleware/users");
 
 // Regist
-router.post("/", userController.createNewUser);
+router.post("/regist", userController.createNewUser);
+router.post("/login", userController.userLogin);
 
 module.exports = router;
