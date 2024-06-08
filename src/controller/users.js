@@ -97,8 +97,6 @@ const userLogin = async (req, res) => {
 
   const isPassword = await bcrypt.compare(password, user.password);
 
-  console.log(isPassword);
-
   if (isPassword) {
     const payLoad = {
       id: user.id,
@@ -113,6 +111,8 @@ const userLogin = async (req, res) => {
 
     const token = jwt.sign(payLoad, secret, { expiresIn: expiresIn });
 
+    res.setHeader("Authorization", `Bearer ${token}`);
+
     return res.status(201).json({
       data: {
         id: user.id,
@@ -121,8 +121,6 @@ const userLogin = async (req, res) => {
         last_name: user.last_name,
         email: user.email,
       },
-
-      token: token,
     });
   } else {
     return res.status(403).json({
@@ -130,6 +128,14 @@ const userLogin = async (req, res) => {
     });
   }
 };
+
+const userProfile = async (req, res) => {
+  const userData = await prisma.user.findUnique({
+    where : {
+      id : id
+    }
+  })
+}
 
 module.exports = {
   createNewUser,

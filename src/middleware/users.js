@@ -1,11 +1,22 @@
-const validateUser = (req, res, next) => {
-  const { username, password, email } = req.body;
-  if (!username || !password || !email) {
-    return res.status(400).json({
-      message: "Failed to create user, all fields are required",
+const jwt = require("jsonwebtoken");
+
+const accessValidation = (req, res, net) => {
+  const token = req.headers.authorization;
+
+  if (!token) {
+    return res.status(401).json({
+      message: "Unauthorized: Missing token",
     });
   }
-  next();
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    console.error(error);
+    return res.status(401).json({ message: "Unauthorized: Invalid token" });
+  }
 };
 
-module.exports = { validateUser };
+module.exports = { accessValidation };
