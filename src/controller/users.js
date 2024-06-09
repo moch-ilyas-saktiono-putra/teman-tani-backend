@@ -80,8 +80,9 @@ const createNewUser = async (req, res) => {
   }
 };
 
-const userLogin = async (req, res) => {
+const userLogin = async (req, res, next) => {
   const { email, password } = req.body;
+  console.log(email, password);
 
   const user = await prisma.users.findUnique({
     where: {
@@ -100,9 +101,6 @@ const userLogin = async (req, res) => {
   if (isPassword) {
     const payLoad = {
       id: user.id,
-      username: user.username,
-      first_name: user.first_name,
-      last_name: user.last_name,
     };
 
     const secret = process.env.JWT_SECRET;
@@ -110,6 +108,7 @@ const userLogin = async (req, res) => {
     const expiresIn = 60 * 60 * 1;
 
     const token = jwt.sign(payLoad, secret, { expiresIn: expiresIn });
+    console.log(token);
 
     res.setHeader("Authorization", `Bearer ${token}`);
 
@@ -121,6 +120,7 @@ const userLogin = async (req, res) => {
         last_name: user.last_name,
         email: user.email,
       },
+      token: token,
     });
   } else {
     return res.status(403).json({
@@ -130,14 +130,38 @@ const userLogin = async (req, res) => {
 };
 
 const userProfile = async (req, res) => {
-  const userData = await prisma.user.findUnique({
-    where : {
-      id : id
-    }
-  })
-}
+  const userId = parseInt(req.params.id);
+  const userData = await prisma.users.findUnique({
+    where: {
+      id: userId,
+    },
+    select: {
+      username: true,
+      first_name: true,
+      last_name: true,
+      email: true,
+    },
+  });
+
+  if (!userData) {
+    return res.status(404).json({
+      message: "User not found",
+    });
+  }
+
+  return res.status(200).json({
+    message: "User retrieved successfully",
+    data: {
+      username: userData.username,
+      first_name: userData.first_name,
+      last_name: userData.last_name,
+      email: userData.email,
+    },
+  });
+};
 
 module.exports = {
   createNewUser,
   userLogin,
+  userProfile,
 };
