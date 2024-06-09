@@ -7,23 +7,37 @@ const jwt = require("jsonwebtoken");
 // Regist
 const createNewUser = async (req, res) => {
   // filled foorm check
-  if (
-    !req.body.username ||
-    !req.body.first_name ||
-    !req.body.last_name ||
-    !req.body.password ||
-    !req.body.email
-  ) {
+  if (!req.body.username) {
     return res.status(400).json({
-      message: "Failed to create user, all fields are required",
-    });
-  } else if (!validator.isEmail(req.body.email)) {
-    return res.status(400).json({
-      message: "Format email salah",
+      message: "Username is required.",
     });
   }
 
-  const { username, first_name, last_name, email, password } = req.body;
+  if (!req.body.email) {
+    return res.status(400).json({
+      message: "Email is required.",
+    });
+  }
+
+  if (!validator.isEmail(req.body.email)) {
+    return res.status(400).json({
+      message: "Invalid email format. Please enter a valid email address.",
+    });
+  }
+
+  if (!req.body.password) {
+    return res.status(400).json({
+      message: "Password is required.",
+    });
+  }
+
+  if (!req.body.password.length > 7 ) {
+    return res.status(400).json({
+      message: "Your password must be at least 8 characters long",
+    });
+  }
+
+  const { username, email, password } = req.body;
 
   const usedEmail = await prisma.users.findUnique({
     where: {
@@ -33,7 +47,7 @@ const createNewUser = async (req, res) => {
 
   if (usedEmail) {
     return res.status(400).json({
-      message: "Email has beed used",
+      message: "Email has already been used",
     });
   }
 
@@ -45,32 +59,22 @@ const createNewUser = async (req, res) => {
 
   if (usedUsername) {
     return res.status(400).json({
-      message: "Username has beed used",
-    });
-  }
-
-  if (!password.length > 7) {
-    return res.status(400).json({
-      message: "Password length must be more than 8 characters",
+      message: "Username has already been used",
     });
   }
 
   const hashedPasword = await bcrypt.hash(password, 10);
 
-  console.log(username, first_name, last_name, password, email);
-
   try {
     const sendData = await prisma.users.create({
       data: {
         username: username,
-        first_name: first_name,
-        last_name: last_name,
         email: email,
         password: hashedPasword,
       },
     });
     return res.status(201).json({
-      message: "User success created",
+      message: "User successfully created",
     });
   } catch (error) {
     return res.status(500).json({
