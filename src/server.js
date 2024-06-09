@@ -11,9 +11,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // Import Router
 const userRouters = require("./routes/users");
+const predictionRouters = require('./routes/predictions')
 
 // Router
-app.use("/users", userRouters);
+app.use("/user", userRouters);
+app.use("/prediction", predictionRouters)
 
 // server
 app.listen(PORT, () => {
