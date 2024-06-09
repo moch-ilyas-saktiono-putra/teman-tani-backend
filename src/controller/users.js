@@ -31,7 +31,7 @@ const createNewUser = async (req, res) => {
     });
   }
 
-  if (!req.body.password.length > 7 ) {
+  if (!req.body.password.length > 7) {
     return res.status(400).json({
       message: "Your password must be at least 8 characters long",
     });
@@ -86,7 +86,6 @@ const createNewUser = async (req, res) => {
 
 const userLogin = async (req, res, next) => {
   const { email, password } = req.body;
-  console.log(email, password);
 
   const user = await prisma.users.findUnique({
     where: {
@@ -120,8 +119,6 @@ const userLogin = async (req, res, next) => {
       data: {
         id: user.id,
         username: user.username,
-        first_name: user.first_name,
-        last_name: user.last_name,
         email: user.email,
       },
       token: token,
@@ -141,8 +138,6 @@ const userProfile = async (req, res) => {
     },
     select: {
       username: true,
-      first_name: true,
-      last_name: true,
       email: true,
     },
   });
@@ -157,8 +152,6 @@ const userProfile = async (req, res) => {
     message: "User retrieved successfully",
     data: {
       username: userData.username,
-      first_name: userData.first_name,
-      last_name: userData.last_name,
       email: userData.email,
     },
   });
