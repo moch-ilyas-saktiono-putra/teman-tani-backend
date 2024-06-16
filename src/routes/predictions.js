@@ -4,6 +4,7 @@ const predictionControllers = require("../controller/predictions");
 const validateUser = require("../middleware/users");
 
 // Regist
-router.post("/save/:id", validateUser.accessValidation, predictionControllers.predictionResults);
+router.post("/", validateUser.accessValidation, predictionControllers.predictions)
+router.post("/calculate", validateUser.accessValidation, predictionControllers.calculateSeeds)
 
 module.exports = router;
