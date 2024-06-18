@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "teman-tani-10",
+  "private_key_id": "04e6d3cf3344e6e45b440089781ccb70925e5ede",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC+foKlznHBLiPt\npdWrYgG3TBw3BzVfPdhhyexGTGj13rU+3aDRYsMHyzGbyuU3F87U65FB/K22MdcU\n/vhgIF3J1cBK+jGw6rNZzau0ZwuanIDp7Z3hdimkOaKAF7Vl0fNsxA8erHVcuQXs\nVmDiXv33Xrak4QW7gTww3GhFbuRYNCMeV8EOTBb49Px7Nmp/s4vts+Czn6imur0C\n3nJ1hbqBTjBedd4VjEQ+EiCoylVZqXeWnOM9N8l0xXAkJ4odCMM9i8GsQX/poSfN\nn35vq062hxBociWMyGmOHU1aDXxE1LFbKJ7ieJdK9nFspxbDGR+QBjgNxp4AGb/Y\nNFha03tpAgMBAAECggEAHIwObaUcsH/G5BYKSXrwOWUXRFrY8Xst6meteBJ61z/H\nBxMFBuPnSMt3VXrIM2OmvAtKUyp36NoaupuEIrmu/HCDNuk8GaBufLqA7RHVMBgc\njJHuq0s/LcxyUQJcjZPzSB0wi9753omevN5r+fiU1CWWNuq+5mzVVZguKxuVbi8t\n00MtS6GtglJN5Vv2e5eMD5J1I8/d0gQOpNo7v0k/ubNxhwQymapOPmZccvy8eSWU\nkmGfu4Urr1JB+IJo4C0VKudc+D9GncmjV2PDqcVDG+LyiiswEi8taEusTglat0cC\niQ8Aw1sgTKndx3VbmqeaiasdaO+K9SnHWmscHrampQKBgQDgEEZvLRTknZJ3rbM8\n/Pjfs1r7THcD/IzP+iDEngZateAXRRQ0PfuJLPQyWaB/dn+n7bCZYuk8DIbEh7gG\nAoQl+SS9y6852AiuwiBCfRWdPS+4THBplSDOBQngAyOKn7ihBy1Sf52DtGb5zqv3\nBgn/QvAeBAr/i30mAt4VqlXT5QKBgQDZpVdZ2Q7DyQrkeTgIqJUo7+9gLfNNZ9aZ\n09mPfM0fPmIHs4DjK85uYCO6XSFCxjjkIQ5Gho2TDqUJY6rJU3DJ6yHfPsYVUuQA\ng+zkZCfrdCpm5Gv5BGNRpvwEbNnGxq7kOq8DuyaFMghoe+Bq9Tt1lO0zxTGaR5Og\nlfcSwJRZNQKBgQCTcWJICoxzHFWjt4P5ICbNXgMC1wCCeRBYU6p4d9yKmKBL78Mp\n1ZfOXuyarWv2NI4wfTL23KXKRBvy+7RXEBTRwC8zTfOSxtx/03LTDejJPdhHGNXo\nRJ//skUbSjV7JTuji0uBvER0xKP2ws9akHjHps7HkbWDD9Fc0ApAi4RLGQKBgB3c\nsb+CKKR0USpH94g4mT6krRNlOpzEQo2Yo6EsXniK9qhX2LdSq2A5kK1hWc7vo56p\namwCyioDOGGxax10dWU+/cbDtin21ZG8iCROGawUpDy52pawI3BwmOOCi97aI+Ts\nqFa6tu5PjxfG52PFggMADAuuYr/oUjkWWnAYPEKBAoGAP/dnWrAGe1WXI61O1Gcw\nwXJDoSPkZfABx+WzBPCn+6eWD4ItxoCmZRuNBan7b2lRUqab+lE7YpyxiOCtgDU9\n2THnGtV0rQGvFFHiPDx/Pr/pwSR6yLzIrDDFgKFbyqTv8NKaq+nRMmqKI1jfQdyT\nm1KpuBkKsDGHjRWnxA31kRY=\n-----END PRIVATE KEY-----\n",
+  "client_email": "databaseadmin@teman-tani-10.iam.gserviceaccount.com",
+  "client_id": "115906028053942055284",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/databaseadmin%40teman-tani-10.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
