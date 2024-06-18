@@ -1,13 +1,14 @@
 require("dotenv").config();
 const express = require("express");
 const { PrismaClient } = require("@prisma/client");
+const bodyParser = require('body-parser');
 
 const PORT = process.env.PORT || 5000;
 const app = express();
 
 // Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Import Router
 const userRouters = require("./routes/users");
