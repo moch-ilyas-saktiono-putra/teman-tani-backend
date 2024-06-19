@@ -9,5 +9,6 @@ const upload = multer()
 router.post("/calculate", predictionControllers.calculateSeeds)
 router.post("/save/:id", upload.single('image'),predictionControllers.saveData)
 router.get("/history/:id",predictionControllers.getHistory)
+router.get("/detail/:id",predictionControllers.detailHistory)
 
 module.exports = router;

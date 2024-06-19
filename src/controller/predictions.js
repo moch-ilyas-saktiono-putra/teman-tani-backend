@@ -21,7 +21,9 @@ const predictions = async (req, res) => {
     });
   } catch (error) {
     console.log("Error during prediction:", error);
-    res.status(500).json({ message: "An error occurred during prediction" });
+    return res
+      .status(500)
+      .json({ message: "An error occurred during prediction" });
   }
 };
 
@@ -80,10 +82,13 @@ const saveData = async (req, res) => {
     });
   } catch (error) {
     console.error("Error during uploading:", error);
-    res.status(500).json({ message: "An error occurred during uploading" });
+    return res
+      .status(500)
+      .json({ message: "An error occurred during uploading" });
   }
 };
 
+// Get All History
 const getHistory = async (req, res) => {
   const userId = parseInt(req.params.id);
 
@@ -100,7 +105,30 @@ const getHistory = async (req, res) => {
     });
   } catch (error) {
     console.error("Error during uploading:", error);
-    res
+    return res
+      .status(500)
+      .json({ message: "An error occurred during retreived data" });
+  }
+};
+
+// Get Detail History
+const detailHistory = async (req, res) => {
+  const historyId = parseInt(req.params.id);
+
+  try {
+    const detail = await prisma.predictions.findUnique({
+      where: {
+        id: historyId,
+      },
+    });
+
+    return res.status(201).json({
+      message: "Successfully retreived data",
+      detail,
+    });
+  } catch (error) {
+    console.error("Error during uploading:", error);
+    return res
       .status(500)
       .json({ message: "An error occurred during retreived data" });
   }
@@ -134,7 +162,7 @@ const calculateSeeds = async (req, res) => {
     });
   } catch (error) {
     console.error("Error during calculation:", error);
-    res
+    return res
       .status(500)
       .json({ message: "An error occurred during seed calculation" });
   }
@@ -145,4 +173,5 @@ module.exports = {
   predictions,
   saveData,
   getHistory,
+  detailHistory,
 };
