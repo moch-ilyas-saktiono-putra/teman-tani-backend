@@ -8,6 +8,6 @@ const upload = multer()
 // Regist
 router.post("/regist", upload.single('none'), userController.createNewUser);
 router.post("/login", upload.single('none'), userController.userLogin);
-router.get('/profile/:id', validateUser.accessValidation, userController.userProfile)
+router.get('/profile/:id', userController.userProfile)
 
 module.exports = router;

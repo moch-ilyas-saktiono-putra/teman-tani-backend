@@ -106,14 +106,14 @@ const userLogin = async (req, res, next) => {
       id: user.id,
     };
 
-    const secret = process.env.JWT_SECRET;
+    // const secret = process.env.JWT_SECRET;
 
-    const expiresIn = 60 * 60 * 1;
+    // const expiresIn = 60 * 60 * 1;
 
-    const token = jwt.sign(payLoad, secret, { expiresIn: expiresIn });
-    console.log(token);
+    // const token = jwt.sign(payLoad, secret, { expiresIn: expiresIn });
+    // console.log(token);
 
-    res.setHeader("Authorization", `Bearer ${token}`);
+    // res.setHeader("Authorization", `Bearer ${token}`);
 
     return res.status(201).json({
       data: {
@@ -121,7 +121,7 @@ const userLogin = async (req, res, next) => {
         username: user.username,
         email: user.email,
       },
-      token: token,
+      // token: token,
     });
   } else {
     return res.status(403).json({
