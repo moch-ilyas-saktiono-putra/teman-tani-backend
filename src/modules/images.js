@@ -4,7 +4,7 @@ require("dotenv").config();
 
 const path = require("path");
 
-const pathKey = path.resolve("./teman-tani-10-04e6d3cf3344.json");
+const pathKey = path.resolve("./teman-tani-10-5326b81988b3.json");
 
 const gcs = new Storage({
   projectId: process.env.PROJECT_ID,

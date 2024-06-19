@@ -13,10 +13,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Import Router
 const userRouters = require("./routes/users");
 const predictionRouters = require('./routes/predictions')
+const weatherRouters = require('./routes/weather')
 
 // Router
 app.use("/user", userRouters);
 app.use("/prediction", predictionRouters)
+app.use("/weather", weatherRouters)
 
 // server
 app.listen(PORT, () => {
