@@ -5,6 +5,7 @@ require("dotenv").config();
 const modelPrediction = require("../modules/model");
 const uploadToGcs = require("../modules/images");
 
+// Predicitons
 const predictions = async (req, res) => {
   const image = req.file;
   if (!image) {
@@ -24,10 +25,11 @@ const predictions = async (req, res) => {
   }
 };
 
+// Save= Data
 const saveData = async (req, res) => {
   const image = req.file;
   const label = req.body.prediction;
-  console.log(label)
+  console.log(label);
   const userId = req.params.id;
   const user_id = parseInt(userId);
 
@@ -82,6 +84,29 @@ const saveData = async (req, res) => {
   }
 };
 
+const getHistory = async (req, res) => {
+  const userId = parseInt(req.params.id);
+
+  try {
+    const historyData = await prisma.predictions.findMany({
+      where: {
+        user_id: userId,
+      },
+    });
+
+    return res.status(201).json({
+      message: "Successfully retreived data",
+      historyData,
+    });
+  } catch (error) {
+    console.error("Error during uploading:", error);
+    res
+      .status(500)
+      .json({ message: "An error occurred during retreived data" });
+  }
+};
+
+// Calculation Seed
 const calculateSeeds = async (req, res) => {
   const { area } = req.body;
 
@@ -119,4 +144,5 @@ module.exports = {
   calculateSeeds,
   predictions,
   saveData,
+  getHistory,
 };
