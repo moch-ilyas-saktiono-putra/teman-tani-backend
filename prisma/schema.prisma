@@ -26,3 +26,12 @@ model predictions {
 
   @@index([user_id], map: "user_id")
 }
+
+model articles {
+  id          Int      @id @default(autoincrement())
+  title       String   @unique @db.VarChar(191)
+  content     String   @db.Text
+  banner     String?  @db.VarChar(191)
+  createdAt  DateTime @default(now()) @db.Timestamp(0)
+  updatedAt  DateTime @default(now()) @db.Timestamp(0)
+}
