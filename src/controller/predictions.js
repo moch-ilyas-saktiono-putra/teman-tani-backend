@@ -65,7 +65,7 @@ const calculateSeeds = async (req, res) => {
       });
     }
 
-    const result = area * 10; 
+    const result = (area * 10)/1000; 
     return res.status(200).json({
       message: "Seed calculation successful",
       data: {
