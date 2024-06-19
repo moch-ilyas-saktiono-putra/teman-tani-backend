@@ -6,8 +6,7 @@ const multer = require('multer')
 const upload = multer()
 
 // Regist
-router.post("/", predictionControllers.predictions)
 router.post("/calculate", predictionControllers.calculateSeeds)
-router.post("/save", upload.single('image'),predictionControllers.saveData)
+router.post("/save/:id", upload.single('image'),predictionControllers.saveData)
 
 module.exports = router;

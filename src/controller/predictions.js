@@ -3,8 +3,7 @@ const prisma = new PrismaClient();
 const axios = require("axios");
 require("dotenv").config();
 const modelPrediction = require("../modules/model");
-const uploadToGcs = require('../modules/images')
-
+const uploadToGcs = require("../modules/images");
 
 const predictions = async (req, res) => {
   const image = req.file;
@@ -27,6 +26,10 @@ const predictions = async (req, res) => {
 
 const saveData = async (req, res) => {
   const image = req.file;
+  const label = req.body.prediction;
+  console.log(label)
+  const userId = req.params.id;
+  const user_id = parseInt(userId);
 
   if (!image) {
     return res.status(400).json({
@@ -35,13 +38,43 @@ const saveData = async (req, res) => {
     });
   }
 
+  if (!user_id) {
+    return res.status(400).json({
+      status: false,
+      message: "Invalid input: No user id",
+    });
+  }
+
+  if (!label) {
+    return res.status(400).json({
+      status: false,
+      message: "Invalid input: No label",
+    });
+  }
+
+  const userData = await prisma.users.findUnique({
+    where: {
+      id: user_id,
+    },
+    select: {
+      id: true,
+    },
+  });
+
   try {
-    const publicUrl = await uploadToGcs.uploadToGcs(image); 
-    res.status(200).json({
-      message: "Upload successful",
+    const publicUrl = await uploadToGcs.uploadToGcs(image);
+
+    const sendData = await prisma.predictions.create({
       data: {
-        imageUrl: publicUrl, 
+        user_id: userData.id,
+        image: publicUrl,
+        label: label,
       },
+    });
+
+    return res.status(201).json({
+      message: "Prediction successfully saved",
+      sendData,
     });
   } catch (error) {
     console.error("Error during uploading:", error);
@@ -65,13 +98,13 @@ const calculateSeeds = async (req, res) => {
       });
     }
 
-    const result = (area * 10)/1000; 
+    const result = (area * 10) / 1000;
     return res.status(200).json({
       message: "Seed calculation successful",
       data: {
         result: result,
         units:
-          "Seeds needed for 10 square meters (assuming your area is in square meters)", 
+          "Seeds needed for 10 square meters (assuming your area is in square meters)",
       },
     });
   } catch (error) {
@@ -85,5 +118,5 @@ const calculateSeeds = async (req, res) => {
 module.exports = {
   calculateSeeds,
   predictions,
-  saveData
+  saveData,
 };
